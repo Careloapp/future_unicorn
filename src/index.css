@@ -173,4 +173,60 @@
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.5; transform: scale(0.8); }
   }
+
+  /* Audit log table cells */
+  .audit-th {
+    @apply px-5 py-3 text-left font-body text-[10px] font-medium text-gray-500 uppercase tracking-wider;
+  }
+
+  .audit-td {
+    @apply px-5 py-4;
+  }
+
+  /* Unassigned badge pulse */
+  @keyframes audit-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .audit-pulse {
+    animation: audit-pulse 2s ease-in-out infinite;
+  }
+
+  /* Dashboard ambient orbs — blue/indigo only, zero green */
+  .dash-orb-indigo {
+    position: absolute;
+    width: 640px;
+    height: 640px;
+    top: -15%;
+    right: -8%;
+    border-radius: 9999px;
+    background: radial-gradient(circle, #312e81 0%, transparent 70%);
+    filter: blur(120px);
+    opacity: 0.12;
+  }
+
+  .dash-orb-blue {
+    position: absolute;
+    width: 480px;
+    height: 480px;
+    bottom: -12%;
+    left: 5%;
+    border-radius: 9999px;
+    background: radial-gradient(circle, #1e3a5f 0%, transparent 70%);
+    filter: blur(120px);
+    opacity: 0.14;
+  }
+
+  .dash-orb-charcoal {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    top: 40%;
+    left: 35%;
+    border-radius: 9999px;
+    background: radial-gradient(circle, #1e293b 0%, transparent 70%);
+    filter: blur(100px);
+    opacity: 0.10;
+  }
 }

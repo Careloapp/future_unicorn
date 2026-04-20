@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { ArrowDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import VideoBackground from "./VideoBackground";
 import PhoneMockup from "./PhoneMockup";
 
@@ -30,6 +31,7 @@ const WaveformBars = () => (
 );
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       <VideoBackground
@@ -71,25 +73,33 @@ const HeroSection = () => {
         </motion.p>
 
         <motion.div
-          className="flex items-center gap-6 mt-2"
+          className="flex items-center gap-4 mt-2"
           initial={{ opacity: 0, filter: "blur(10px)" }}
           animate={{ opacity: 1, filter: "blur(0px)" }}
           transition={{ duration: 0.7, delay: 1.1 }}
         >
           <a
             href="#how-it-works"
-            className="flex items-center gap-2 text-sm font-body font-normal text-white/70 hover:text-white/90 transition-colors"
+            className="flex items-center gap-2 text-sm font-body font-normal text-white/60 hover:text-white/90 transition-colors"
           >
             See How It Works
             <ArrowDown className="w-3.5 h-3.5" />
           </a>
-          <a
-            href="#contact"
-            className="group liquid-glass-strong rounded-full px-6 py-3 text-sm font-body font-medium text-[var(--text-primary)] flex items-center gap-1 hover:bg-white/10 transition-colors"
+          <motion.button
+            onClick={() => navigate("/signup")}
+            className="group liquid-glass-strong rounded-full px-6 py-3 text-sm font-body font-semibold flex items-center gap-2"
+            style={{
+              background: "linear-gradient(135deg, #00e5a0, #00c988)",
+              color: "#05070E",
+              boxShadow: "0 0 28px rgba(0,229,160,0.35)",
+              border: "none",
+            }}
+            whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(0,229,160,0.5)" }}
+            whileTap={{ scale: 0.97 }}
           >
-            Book a Demo
+            Join
             <WaveformBars />
-          </a>
+          </motion.button>
         </motion.div>
 
         <motion.div

@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import VoiceOrb from "./VoiceOrb";
 import { Brain, Globe } from "lucide-react";
 
@@ -10,6 +11,7 @@ const features = [
 
 const MeetMirrinVoice = () => {
   const [hovered, setHovered] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <section id="meet-agent" className="py-24 px-8 lg:px-24 max-w-7xl mx-auto">
@@ -40,13 +42,16 @@ const MeetMirrinVoice = () => {
       </motion.p>
 
       <motion.div
-        className="max-w-md mx-auto bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl p-8 flex flex-col items-center mb-12"
+        className="max-w-md mx-auto bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl p-8 flex flex-col items-center mb-12 cursor-pointer"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
+        whileHover={{ y: -4, boxShadow: "0 24px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,229,160,0.15)" }}
+        whileTap={{ scale: 0.98 }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        onClick={() => navigate("/signup")}
       >
         <span className="font-body font-medium text-xs tracking-[0.2em] mb-6 text-[var(--red)]">
           CARELO AI
@@ -60,9 +65,16 @@ const MeetMirrinVoice = () => {
             </span>
           ))}
         </div>
-        <button className="font-body font-medium text-sm text-[var(--red)] hover:underline transition-colors">
+        <motion.span
+          className="font-body font-semibold text-sm px-5 py-2.5 rounded-full pointer-events-none"
+          style={{
+            background: "linear-gradient(135deg, #00e5a0, #00c988)",
+            color: "#05070E",
+            boxShadow: "0 0 20px rgba(0,229,160,0.3)",
+          }}
+        >
           Hear Carelo ↗
-        </button>
+        </motion.span>
       </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
