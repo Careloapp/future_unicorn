@@ -1,6 +1,6 @@
 # Carelo
 
-An AI-powered call capture system for home care agencies. Every inbound call is handled by a live voice AI, recorded, transcribed, summarized, and surfaced in a real-time dashboard — so your team never misses a lead or a client.
+An AI-powered call capture system for home care agencies. Every inbound call is handled by a live voice AI, recorded, transcribed, summarized, and surfaced in a real-time dashboard; so your team never misses a lead or a client.
 
 ---
 
