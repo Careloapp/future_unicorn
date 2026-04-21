@@ -45,19 +45,28 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-4">
-            <button
+            <motion.button
               onClick={() => navigate("/login")}
-              className="font-body font-medium text-sm text-white/70 hover:text-white transition-colors"
+              className="font-body font-medium text-sm text-white/60 hover:text-white transition-colors"
+              whileHover={{ opacity: 1 }}
+              whileTap={{ scale: 0.97 }}
             >
               Login
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={() => navigate("/signup")}
-              className="font-body font-medium text-sm text-[var(--amber)] group flex items-center gap-1"
+              className="font-body font-semibold text-sm px-4 py-2 rounded-full flex items-center gap-1.5"
+              style={{
+                background: "linear-gradient(135deg, #00e5a0, #00c988)",
+                color: "#05070E",
+                boxShadow: "0 0 18px rgba(0,229,160,0.25)",
+              }}
+              whileHover={{ scale: 1.04, boxShadow: "0 0 28px rgba(0,229,160,0.4)" }}
+              whileTap={{ scale: 0.97 }}
             >
-              Get Early Access
-              <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-            </button>
+              Sign Up
+              <span>→</span>
+            </motion.button>
           </div>
 
           <button className="md:hidden flex flex-col gap-1.5" onClick={() => setMobileOpen(true)}>
@@ -86,8 +95,12 @@ const Navbar = () => {
               <button onClick={() => { setMobileOpen(false); navigate("/login"); }} className="font-body text-lg text-white/70 hover:text-white transition-colors text-left">
                 Login
               </button>
-              <button onClick={() => { setMobileOpen(false); navigate("/signup"); }} className="font-body font-medium text-[var(--amber)] mt-4 text-left">
-                Get Early Access →
+              <button
+                onClick={() => { setMobileOpen(false); navigate("/signup"); }}
+                className="font-body font-semibold text-sm px-5 py-3 rounded-full mt-4 text-left"
+                style={{ background: "linear-gradient(135deg, #00e5a0, #00c988)", color: "#05070E" }}
+              >
+                Sign Up →
               </button>
             </motion.div>
           </>
