@@ -8,6 +8,7 @@ import Index from "./pages/Index.tsx";
 import Login from "./pages/Login.tsx";
 import Signup from "./pages/Signup.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import AuthCallback from "./pages/AuthCallback.tsx";
 
 import ProtectedRoute from "./routes/ProtectedRoute.tsx";
 import AdminDashboard from "./pages/dashboard/AdminDashboard.tsx";
@@ -33,6 +34,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+
+          {/* Google OAuth callback */}
+          <Route path="/auth/callback" element={<AuthCallback />} />
 
           {/* Legacy redirect */}
           <Route path="/dashboard" element={<Navigate to="/login" replace />} />
