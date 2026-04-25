@@ -127,3 +127,66 @@ export async function getAccessToken(): Promise<string | null> {
   const { data } = await supabase.auth.getSession();
   return data.session?.access_token ?? null;
 }
+
+
+/* ── Google OAuth Sign-In / Sign-Up ───────────────────────────────────────
+ *
+ * This triggers a redirect to Google. The user will be sent back to
+ * /auth/callback where handleGoogleCallback() picks up the session.
+ *
+ * The `role` param is stored in the OAuth state so we can write it
+ * to localStorage after the redirect completes.
+ */
+export async function signInWithGoogle(role: UserRole = "admin"): Promise<{ error: string | null }> {
+  if (!isSupabaseConfigured() || !supabase) {
+    return { error: "Supabase is not configured. Add your .env.local keys." };
+  }
+
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${window.location.origin}/auth/callback?role=${role}`,
+      queryParams: {
+        access_type: "offline",
+        prompt: "consent",
+      },
+    },
+  });
+
+  return { error: error?.message ?? null };
+}
+
+/* ── Handle the OAuth redirect back from Google ───────────────────────────
+ *
+ * Call this inside the /auth/callback page.
+ * It reads the Supabase session from the URL hash/search params,
+ * writes the user to localStorage in the same format as signIn(),
+ * and returns the AuthUser so the caller can redirect.
+ */
+export async function handleGoogleCallback(role: UserRole = "admin"): Promise<AuthResult> {
+  if (!isSupabaseConfigured() || !supabase) {
+    return { user: null, error: "Supabase is not configured." };
+  }
+
+  // Supabase automatically exchanges the code in the URL for a session
+  // because detectSessionInUrl is true in the client config.
+  const { data, error } = await supabase.auth.getSession();
+
+  if (error) return { user: null, error: error.message };
+  if (!data.session) return { user: null, error: "No session found after Google sign-in." };
+
+  const supaUser = data.session.user;
+
+  const name =
+    (supaUser.user_metadata?.full_name as string | undefined) ??
+    (supaUser.user_metadata?.name as string | undefined) ??
+    supaUser.email?.split("@")[0] ??
+    "User";
+
+  const email = supaUser.email ?? "";
+
+  const authUser: AuthUser = { name, email, role };
+  saveAuth(authUser);
+
+  return { user: authUser, error: null };
+}
