@@ -23,7 +23,6 @@ export const supabase =
           persistSession: true,
           autoRefreshToken: true,
           detectSessionInUrl: true,
-          flowType: "implicit",   // use URL-hash token exchange; avoids browser credential-store prompt
         },
       })
     : null;
